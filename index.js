@@ -4,7 +4,7 @@ var session = require('express-session');
 var flash = require('express-flash');
 var app = express();
 
-app.set('viw engine', 'ejs');
+app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
@@ -20,8 +20,7 @@ app.use(flash());
 
 
 app.get('/',(req, res)=> {
-    console.log('App online...');
-    res.send('Olá Mundo');
+    res.render('index');
 })
 
 app.listen(8080,(req,res)=>{
