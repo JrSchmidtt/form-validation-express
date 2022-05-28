@@ -21,7 +21,23 @@ app.use(session({
 app.use(flash());
 
 app.get('/',(req, res)=> {
-    res.render('index');
+    var email = req.flash('email');
+    var name = req.flash('name');
+    var cpf = req.flash('cpf');
+
+    var emailError = req.flash('emailError');
+    var nameError = req.flash('nameError');
+    var cpfError = req.flash('cpfError');
+
+    email = (email == undefined || email.length == 0) ? undefined : email;
+    name = (name == undefined || name.length == 0) ? undefined : name;
+    cpf = (cpf == undefined || cpf.length == 0) ? undefined : cpf;
+
+    emailError = (emailError == undefined || emailError.length == 0) ? undefined : emailError;
+    nameError = (nameError == undefined || nameError.length == 0) ? undefined : nameError;
+    cpfError = (cpfError == undefined || cpfError.length == 0) ? undefined : cpfError;
+
+    res.render('index',{email:email,name:name,cpf:cpf,emailError,nameError,cpfError});
 })
 
 app.post('/form',(req,res)=>{
@@ -44,8 +60,15 @@ app.post('/form',(req,res)=>{
     }
 
     if(emailError!= undefined || nameError!= undefined || cpfError != undefined){
-        res.send('Check the fields typed correctly')
-        res.redirect('/')
+        req.flash("emailError",emailError);
+        req.flash("nameError",nameError);
+        req.flash("cpfError",cpfError);
+
+        req.flash('email', email);
+        req.flash('name', name);
+        req.flash('cpf', cpf);
+
+        res.redirect('/');
     }else{
         res.send('Submitted form');
         res.redirect('/')
@@ -53,5 +76,5 @@ app.post('/form',(req,res)=>{
 })
 
 app.listen(8080,(req,res)=>{
-    console.log('Servidor Rondando!');
+    console.log('Server Running..');
 })

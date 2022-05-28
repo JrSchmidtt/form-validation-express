@@ -8,9 +8,12 @@
 </head>
 <body>
     <form method="post" action="/form">
-        <input type="email" name="email" id="email" placeholder="email@host.com">
-        <input type="text" name="name" id="name" placeholder="name">
-        <input type="number" name="cpf" id="cpf" placeholder="CPF">
+        <input type="email" name="email" id="email" value="<%= email %>" placeholder="email@host.com">
+        <%= emailError %> <br>
+        <input type="text" name="name" id="name" value="<%= name %>" placeholder="name">
+        <%= nameError %> <br>
+        <input type="number" name="cpf" id="cpf" value="<%= cpf %>" placeholder="CPF">
+        <%= cpfError %> <br>
         <button type="submit" >Send</button>
     </form>
     
