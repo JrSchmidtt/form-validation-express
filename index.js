@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var cookieParser =require('cookie-parser');
 var session = require('express-session');
 var flash = require('express-flash');
 var app = express();
@@ -9,15 +10,15 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json())
 
+app.use(cookieParser('4FZVFrlfgIqyfp9NaVtt'));
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { maxAge: 60000 }
 }))
 
 app.use(flash());
-
 
 app.get('/',(req, res)=> {
     res.render('index');
